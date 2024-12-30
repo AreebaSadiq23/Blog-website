@@ -34,7 +34,13 @@ const blogPosts = {
   },
 };
 
-export default function BlogPost({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function BlogPost({ params }: PageProps) {
   const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
