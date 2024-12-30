@@ -34,14 +34,12 @@ const blogPosts = {
   },
 };
 
-interface PageProps {
-  params: {
-    id: string;
-  };
+type Props = {
+  params: { id: string }
 }
 
-export default function BlogPost({ params }: PageProps) {
-  const post = blogPosts[params.id as keyof typeof blogPosts];
+export default function BlogPost({ params }: Props) {
+  const post = blogPosts[params.id as keyof typeof blogPosts]
 
   if (!post) {
     notFound();
