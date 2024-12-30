@@ -29,22 +29,22 @@ const About: React.FC = () => {
           {/* Content Section */}
           <div className="prose lg:prose-xl dark:text-gray-400">
             <p>
-              I'm passionate about sharing knowledge and insights on web
+              I&apos;m passionate about sharing knowledge and insights on web
               development, design, and technology. The goal of this blog is to
               provide you with valuable information, guidance, and the latest
               trends in the tech world.
             </p>
             <p className="mt-4">
-              Whether you're here to learn development, stay updated on industry
-              news, or explore creative solutions to everyday challenges,
-              there's something here for you. My aim is to inspire and inform
+              Whether you&apos;re here to learn development, stay updated on
+              industry news, or explore creative solutions to everyday challenges,
+              there&apos;s something here for you. My aim is to inspire and inform
               through engaging and insightful content that adds value to your
               journey.
             </p>
             <p className="mt-4">
               Thank you for visiting! If you have any suggestions, feedback, or
-              topics you'd like me to cover, feel free to reach out. Let's learn
-              and grow together.
+              topics you&apos;d like me to cover, feel free to reach out. Let&apos;s
+              learn and grow together.
             </p>
           </div>
         </div>

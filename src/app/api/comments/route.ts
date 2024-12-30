@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
 
-let comments: { [key: string]: any[] } = {};
+// Define a Comment type
+interface Comment {
+  id: number;
+  username: string;
+  text: string;
+  timestamp: string;
+}
+
+// Define a comments type (object where each postId has an array of Comment)
+const comments: { [key: string]: Comment[] } = {};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -23,7 +32,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const newComment = {
+  const newComment: Comment = {
     id: Date.now(),
     username,
     text,
