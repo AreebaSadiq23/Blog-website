@@ -4,7 +4,7 @@ import Image from "next/image";
 interface BlogPostProps {
   id: string;
   title: string;
-  description: string;
+  description: string;  
   imageUrl: string;
   date: string;
 }

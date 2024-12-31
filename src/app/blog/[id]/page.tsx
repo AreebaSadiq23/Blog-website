@@ -35,8 +35,8 @@ const blogPosts = {
 };
 
 type Props = {
-  params: { id: string }
-}
+  params: { id: string };
+};
 
 export default function BlogPost({ params }: Props) {
   const post = blogPosts[params.id as keyof typeof blogPosts]
