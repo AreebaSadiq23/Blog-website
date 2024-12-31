@@ -47,17 +47,17 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
-type Props = {
+type PageProps = {
   params: { id: string };
-};
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-export default function BlogPost({ params }: Props) {
+export default function BlogPost({ params, searchParams }: PageProps) {
   const post = blogPosts[params.id as keyof typeof blogPosts]
 
   if (!post) {
-    notFound();
+    notFound()
   }
-
   return (
     <Layout>
       <article className="max-w-3xl mx-auto">
