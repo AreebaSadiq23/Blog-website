@@ -3,6 +3,15 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Comments from "../../components/Comments";
 
+// This type represents our blog post structure
+type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  date: string;
+}
+
 const blogPosts = {
   "3": {
     title: "The Power of Tailwind CSS",
@@ -66,4 +75,9 @@ export default function BlogPost({ params }: Props) {
       </article>
     </Layout>
   );
+}
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id: id,
+  }))
 }
