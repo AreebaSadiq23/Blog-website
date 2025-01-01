@@ -8,6 +8,7 @@ interface Comment {
   timestamp: string;
 }
 
+
 // Define a comments type (object where each postId has an array of Comment)
 const comments: { [key: string]: Comment[] } = {};
 

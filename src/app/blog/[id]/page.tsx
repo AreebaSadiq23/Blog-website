@@ -47,6 +47,7 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
+
 type PageProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -85,3 +86,4 @@ export async function generateStaticParams() {
     id: id,
   }))
 }
+
