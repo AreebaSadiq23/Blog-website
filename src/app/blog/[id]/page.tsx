@@ -51,7 +51,11 @@ type BlogPostParams = {
   id: string;
 };
 
-export default function BlogPost({ params }: { params: BlogPostParams }) {
+type PageProps = {
+  params: BlogPostParams;
+};
+
+export default function BlogPost({ params }: PageProps) {
   const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
