@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface Comment {
   id: number;
@@ -16,11 +16,7 @@ export default function Comments({ postId }: { postId: string }) {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editingCommentText, setEditingCommentText] = useState("");
 
-  useEffect(() => {
-    fetchComments();
-  }, [postId]);
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/comments?postId=${postId}`);
       const data = await response.json();
@@ -28,7 +24,11 @@ export default function Comments({ postId }: { postId: string }) {
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
-  };
+  }, [postId]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -187,104 +187,66 @@ export default function Comments({ postId }: { postId: string }) {
                   rows={3}
                 />
                 <div className="flex space-x-4">
-                <button
-                  onClick={handleEdit}
-                  className="cursor-pointer flex items-center fill-lime-400 bg-lime-950 hover:bg-lime-900 active:border active:border-lime-400 rounded-md duration-100 p-2"
-                  title="Save"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20px"
-                    height="20px"
-                    viewBox="0 -0.5 25 25"
+                  <button
+                    onClick={handleEdit}
+                    className="cursor-pointer flex items-center fill-lime-400 bg-lime-950 hover:bg-lime-900 active:border active:border-lime-400 rounded-md duration-100 p-2"
+                    title="Save"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M18.507 19.853V6.034C18.5116 5.49905 18.3034 4.98422 17.9283 4.60277C17.5532 4.22131 17.042 4.00449 16.507 4H8.50705C7.9721 4.00449 7.46085 4.22131 7.08577 4.60277C6.7107 4.98422 6.50252 5.49905 6.50705 6.034V19.853C6.45951 20.252 6.65541 20.6407 7.00441 20.8399C7.35342 21.039 7.78773 21.0099 8.10705 20.766L11.907 17.485C12.2496 17.1758 12.7705 17.1758 13.113 17.485L16.9071 20.767C17.2265 21.0111 17.6611 21.0402 18.0102 20.8407C18.3593 20.6413 18.5551 20.2522 18.507 19.853Z"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>
-                  </svg>
-                  <span className="text-sm text-lime-400 font-bold pr-1">
-                    Save
-                  </span>
-                </button>
-                <button
-                  onClick={() => setEditingCommentId(null)}
-                  className="bg-gray-950 text-gray-400 border border-gray-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group"
-                >
-                  <span className="bg-gray-400 shadow-gray-400 absolute -top-[150%] left-0 inline-flex w-0 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                  Cancel
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20px"
+                      height="20px"
+                      viewBox="0 -0.5 25 25"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M18.507 19.853V6.034C18.5116 5.49905 18.3034 4.98422 17.9283 4.60277C17.5532 4.22131 17.042 4.00449 16.507 4H8.50705C7.9721 4.00449 7.46085 4.22131 7.08577 4.60277C6.7107 4.98422 6.50252 5.49905 6.50705 6.034V19.853C6.45951 20.252 6.65541 20.6407 7.00441 20.8399C7.35342 21.039 7.78773 21.0099 8.10705 20.766L11.907 17.485C12.2496 17.1758 12.6311 17.0513 12.974 17.0539L14.507 17.853L18.3593 20.2545C18.5553 20.642 18.8411 20.8411 19.2537 20.853C19.6663 20.8411 19.952 20.642 19.8537 20.2545C19.7554 19.866 19.4726 19.6754 19.0857 19.675C18.7426 19.675 18.4171 19.7968 18.107 19.853L14.507 17.853L11.507 14.853L8.50705 17.853V6.034H14.507V17.853Z"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => setEditingCommentId(null)}
+                    className="cursor-pointer flex items-center text-red-600 bg-transparent hover:bg-red-100 active:border active:border-red-600 rounded-md duration-100 p-2"
+                    title="Cancel"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20px"
+                      height="20px"
+                      viewBox="0 -0.5 25 25"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.399 12.325C13.617 12.107 13.617 11.859 13.399 11.641L11.641 9.883C11.423 9.665 11.175 9.665 10.957 9.883L8.599 12.241L6.241 9.883C6.023 9.665 5.775 9.665 5.557 9.883L3.799 11.641C3.581 11.859 3.581 12.107 3.799 12.325L6.157 14.983L3.799 17.341C3.581 17.559 3.581 17.807 3.799 18.025L5.557 19.783C5.775 20.001 6.023 20.001 6.241 19.783L8.599 17.425L10.957 19.783C11.175 20.001 11.423 20.001 11.641 19.783L13.399 18.025C13.617 17.807 13.617 17.559 13.399 17.341L11.641 14.983L13.399 12.325Z"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
             ) : (
-              <p className="text-gray-700 ">{comment.text}</p>
+              <>
+                <p className="text-gray-700">{comment.text}</p>
+                <div className="flex justify-end space-x-2">
+                  <button
+                    onClick={() => {
+                      setEditingCommentId(comment.id);
+                      setEditingCommentText(comment.text);
+                    }}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(comment.id)}
+                    className="text-red-600 hover:text-red-800"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
             )}
-
-            <div className="flex items-center mt-4 space-x-4">
-              <button
-                onClick={() => {
-                  setEditingCommentId(comment.id);
-                  setEditingCommentText(comment.text);
-                }}
-                className="bg-gray-950 text-gray-400 border border-gray-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group"
-              >
-                <span className="bg-gray-400 shadow-gray-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(comment.id)}
-                className="group relative flex h-10 w-14 flex-col items-center justify-center overflow-hidden rounded-md border-2 border-red-800 bg-red-400 hover:bg-red-600"
-              >
-                <svg
-                  viewBox="0 0 1.625 1.625"
-                  className="absolute -top-7 fill-white delay-100 group-hover:top-6 group-hover:animate-[spin_1.4s] group-hover:duration-1000"
-                  height="15"
-                  width="15"
-                >
-                  <path d="M.471 1.024v-.52a.1.1 0 0 0-.098.098v.618c0 .054.044.098.098.098h.487a.1.1 0 0 0 .098-.099h-.39c-.107 0-.195 0-.195-.195"></path>
-                  <path d="M1.219.601h-.163A.1.1 0 0 1 .959.504V.341A.033.033 0 0 0 .926.309h-.26a.1.1 0 0 0-.098.098v.618c0 .054.044.098.098.098h.487a.1.1 0 0 0 .098-.099v-.39a.033.033 0 0 0-.032-.033"></path>
-                  <path d="m1.245.465-.15-.15a.02.02 0 0 0-.016-.006.023.023 0 0 0-.023.022v.108c0 .036.029.065.065.065h.107a.023.023 0 0 0 .023-.023.02.02 0 0 0-.007-.016"></path>
-                </svg>
-                <svg
-                  width="16"
-                  fill="none"
-                  viewBox="0 0 39 7"
-                  className="origin-right duration-500 group-hover:rotate-90"
-                >
-                  <line
-                    stroke-width="4"
-                    stroke="white"
-                    y2="5"
-                    x2="39"
-                    y1="5"
-                  ></line>
-                  <line
-                    stroke-width="3"
-                    stroke="white"
-                    y2="1.5"
-                    x2="26.0357"
-                    y1="1.5"
-                    x1="12"
-                  ></line>
-                </svg>
-                <svg width="16" fill="none" viewBox="0 0 33 39" className="">
-                  <mask fill="white" id="path-1-inside-1_8_19">
-                    <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
-                  </mask>
-                  <path
-                    mask="url(#path-1-inside-1_8_19)"
-                    fill="white"
-                    d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
-                  ></path>
-                  <path stroke-width="4" stroke="white" d="M12 6L12 29"></path>
-                  <path stroke-width="4" stroke="white" d="M21 6V29"></path>
-                </svg>
-              </button>
-            </div>
           </div>
         ))}
       </div>
