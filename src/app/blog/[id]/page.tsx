@@ -55,6 +55,7 @@ export default function BlogPost({ params }: PageProps) {
 
   if (!post) {
     notFound();
+    return null;
   }
 
   return (
@@ -82,6 +83,6 @@ export default function BlogPost({ params }: PageProps) {
 
 export async function generateStaticParams() {
   return Object.keys(blogPosts).map((id) => ({
-    id: id,
+    id,
   }));
 }
