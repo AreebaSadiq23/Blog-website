@@ -46,13 +46,8 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
-
-type BlogPostParams = {
-  id: string;
-};
-
 type PageProps = {
-  params: BlogPostParams;
+  params: { id: string };
 };
 
 export default function BlogPost({ params }: PageProps) {
@@ -83,4 +78,10 @@ export default function BlogPost({ params }: PageProps) {
       </article>
     </Layout>
   );
+}
+
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id: id,
+  }));
 }
