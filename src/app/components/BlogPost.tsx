@@ -5,7 +5,6 @@ interface BlogPostProps {
   id: string;
   title: string;
   content: string;
-  description: string;  
   imageUrl: string;
   date: string;
 }
@@ -14,7 +13,6 @@ export default function BlogPost({
   id,
   title,
   content,
-  description,
   imageUrl,
   date,
   
@@ -30,7 +28,7 @@ export default function BlogPost({
       />
       <div className="p-6">
         <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{title}</h2>
-        <p className="text-gray-600 dark:text-white mb-4">{description}</p>
+        <p className="text-gray-600 dark:text-white mb-4">{content}</p>
         <div className="flex justify-between items-center mt-4">
           <p className="text-sm text-gray-500">{date}</p>
           <Link
