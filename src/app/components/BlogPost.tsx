@@ -8,15 +8,7 @@ interface BlogPostProps {
   imageUrl: string;
   date: string;
 }
-
-export default function BlogPost({
-  id,
-  title,
-  content,
-  imageUrl,
-  date,
-  
-}: BlogPostProps) {
+export default function BlogPost({ id, title, content, imageUrl, date }: BlogPostProps) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
       <Image
@@ -42,3 +34,4 @@ export default function BlogPost({
     </div>
   );
 }
+

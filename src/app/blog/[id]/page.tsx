@@ -48,14 +48,16 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
-// Dynamic route for the blog post page
-const BlogPostPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+type PageProps = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-  const post = blogPosts[id];
+export default function BlogPost({ params, searchParams }: PageProps) {
+  const post = blogPosts[params.id as keyof typeof blogPosts]
 
   if (!post) {
-    return notFound();
+    notFound()
   }
 
   return (
@@ -80,4 +82,9 @@ const BlogPostPage = async ({ params }: { params: { id: string } }) => {
     </Layout>
   );
 }
-export default BlogPostPage;
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id: id,
+  }))
+}
+
