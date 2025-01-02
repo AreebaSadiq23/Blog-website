@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Comments from "../../components/Comments";
 
+
 type BlogPost = {
   id: string;
   title: string;
@@ -10,6 +11,7 @@ type BlogPost = {
   imageUrl: string;
   date: string;
 }
+
 
 const blogPosts: Record<string, BlogPost> = {
   "3": {
@@ -46,16 +48,14 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
-type PageProps = {
-  params: { id: string };
-};
+// Dynamic route for the blog post page
+const BlogPostPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = params;
 
-export default function BlogPost({ params }: PageProps) {
-  const post = blogPosts[params.id as keyof typeof blogPosts];
+  const post = blogPosts[id];
 
   if (!post) {
-    notFound();
-    return null;
+    return notFound();
   }
 
   return (
@@ -80,9 +80,4 @@ export default function BlogPost({ params }: PageProps) {
     </Layout>
   );
 }
-
-export async function generateStaticParams() {
-  return Object.keys(blogPosts).map((id) => ({
-    id,
-  }));
-}
+export default BlogPostPage;
