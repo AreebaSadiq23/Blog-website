@@ -4,6 +4,7 @@ import Image from "next/image";
 interface BlogPostProps {
   id: string;
   title: string;
+  content: string;
   description: string;  
   imageUrl: string;
   date: string;
@@ -12,9 +13,11 @@ interface BlogPostProps {
 export default function BlogPost({
   id,
   title,
+  content,
   description,
   imageUrl,
   date,
+  
 }: BlogPostProps) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
