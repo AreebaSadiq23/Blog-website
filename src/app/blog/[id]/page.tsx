@@ -51,7 +51,7 @@ type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function BlogPost({ params, searchParams }: PageProps) {
+export default function BlogPost({ params }: PageProps) {
   const post = blogPosts[params.id as keyof typeof blogPosts]
 
   if (!post) {
