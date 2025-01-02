@@ -9,14 +9,6 @@ type BlogPost = {
   content: string;
   imageUrl: string;
   date: string;
-};
-
-type Params = {
-  id: string;
-};
-
-interface PageProps {
-  params: Params;
 }
 
 const blogPosts: Record<string, BlogPost> = {
@@ -54,15 +46,17 @@ const blogPosts: Record<string, BlogPost> = {
   },
 };
 
-const BlogPage = ({ params }: PageProps) => {
-  const { id } = params;
-  const post = blogPosts[id];
+type PageProps = {
+  params: { id: string };
+};
+
+export default function BlogPost({ params }: PageProps) {
+  const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
     notFound();
     return null;
   }
-
 
   return (
     <Layout>
@@ -81,11 +75,14 @@ const BlogPage = ({ params }: PageProps) => {
         <div className="prose lg:prose-xl dark:prose-invert leading-relaxed">
           <p>{post.content}</p>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <Comments postId={params.id} />
       </article>
     </Layout>
   );
 }
 
-export default BlogPage;
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id,
+  }));
+}
