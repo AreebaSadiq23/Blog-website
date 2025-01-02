@@ -2,12 +2,12 @@ import Layout from '../components/Layout'
 import BlogPost from '../components/BlogPost'
 
 const blogPosts = [
-  { id: '1', title: 'Introduction to Next.js: An Overview', description: 'Learn the basics of Next.js and start building awesome React applications.', imageUrl: '/images/nex.jpg', date: 'Dec 20, 2024' },
-  { id: '2', title: 'Mastering Tailwind CSS', description: 'Dive deep into Tailwind CSS and create beautiful, responsive designs with ease.', imageUrl: '/images/tai.jpg', date: 'Dec 25, 2024' },
-  { id: '3', title: 'The Power of TypeScript', description: 'Discover how TypeScript can improve your JavaScript development experience.', imageUrl: '/images/typescript.jpg', date: 'Dec 26, 2024' },
-  { id: '4', title: 'Optimizing React Performance', description: 'Learn techniques to improve the performance of your React applications.', imageUrl: '/images/rea.png', date: 'Dec 27, 2024' },
-  { id: '5', title: 'Introduction to Python', description: 'Python is a beginner-friendly, versatile programming language ideal for web development, data analysis, AI, and more.', imageUrl: '/images/python.png', date: 'Dec 28, 2024' },
-  { id: '6', title: 'Responsive Design Best Practices', description: 'Master the art of creating websites that look great on any device.', imageUrl: '/images/web.jpg', date: 'Dec 29, 2024' },
+  { id: '1', title: 'Introduction to Next.js: An Overview', content: 'Learn the basics of Next.js and start building awesome React applications.', imageUrl: '/images/nex.jpg', date: 'Dec 20, 2024' },
+  { id: '2', title: 'Mastering Tailwind CSS', content: 'Dive deep into Tailwind CSS and create beautiful, responsive designs with ease.', imageUrl: '/images/tai.jpg', date: 'Dec 25, 2024' },
+  { id: '3', title: 'The Power of TypeScript', content: 'Discover how TypeScript can improve your JavaScript development experience.', imageUrl: '/images/typescript.jpg', date: 'Dec 26, 2024' },
+  { id: '4', title: 'Optimizing React Performance', content: 'Learn techniques to improve the performance of your React applications.', imageUrl: '/images/rea.png', date: 'Dec 27, 2024' },
+  { id: '5', title: 'Introduction to Python', content: 'Python is a beginner-friendly, versatile programming language ideal for web development, data analysis, AI, and more.', imageUrl: '/images/python.png', date: 'Dec 28, 2024' },
+  { id: '6', title: 'Responsive Design Best Practices',content: 'Master the art of creating websites that look great on any device.', imageUrl: '/images/web.jpg', date: 'Dec 29, 2024' },
 ]
 
 export default function Blog() {
