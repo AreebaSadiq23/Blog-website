@@ -16,6 +16,7 @@ export default function BlogPost({
   imageUrl,
   date,
   
+  
 }: BlogPostProps) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">

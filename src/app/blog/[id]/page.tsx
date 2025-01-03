@@ -11,6 +11,7 @@ type BlogPost = {
   date: string;
 }
 
+
 const blogPosts: Record<string, BlogPost> = {
   "3": {
     id: "3",
@@ -49,8 +50,6 @@ const blogPosts: Record<string, BlogPost> = {
 type PageProps = {
   params: { id: string };
 }
-
-
 export default function BlogPost({ params}: PageProps) {
   const post = blogPosts[params.id as keyof typeof blogPosts];
 
@@ -81,3 +80,5 @@ export default function BlogPost({ params}: PageProps) {
     </Layout>
   );
 }
+
+
